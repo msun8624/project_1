@@ -1,9 +1,7 @@
 import turtle
 
 painter = turtle.Turtle()
-painter.pensize(20)
-
-for _ in range(18):
+for _ in range(6):
     painter.forward(100)
-    painter.left(100)
+    painter.left(60)
 turtle.done()
