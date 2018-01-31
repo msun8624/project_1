@@ -94,19 +94,20 @@ shinyServer(function(input, output, session){
            select(State, N_state, Density_state, Density_nation) %>%
            group_by(State) %>% distinct() %>% arrange(desc(N_state)) 
        
-       g <- ggplot(qty_vs_density, aes(x=factor(State,  levels = unique(State)), y=N_state))
+       g <- ggplot(qty_vs_density, aes(x=factor(State,  levels = unique(State)), y=N_state+Density_state))
        g + geom_col(aes(fill=State)) + guides(fill=F) + 
            theme(axis.text.x = element_text(angle = 50, hjust = 1, size = 6.5)) +
            ylab('No. of Accidents') +
-           xlab('States') + 
+           xlab('US States') + 
            ggtitle('US Fatal Accidents Distribution - Quantity vs Density') +
            theme(plot.title = element_text(hjust = 0.5)) +
            geom_col(aes(x=factor(State,  levels = unique(State)),y=Density_state),
-                    color = 'blue', alpha = 0, size = 0.25) + 
+                    fill = 'black', alpha = 0.9, size = 0.25) + 
            geom_hline(aes(yintercept =Density_nation), 
-                      linetype = 'dashed', color = 'red', size = 0.5) +
-           annotate('text', x='Wyoming', y = 340, label = 'State Density\nLine (ppm) - Blue', size = 2.4) +
-           annotate('text', x='Vermont', y = 220, label = 'National Density\nLine (ppm) - Red', size = 2.4) 
+                      linetype = 'solid', color = 'red', size = 0.5) +
+           annotate('text', x='Vermont', y = 480, label = 'National Density\nLine (pp3m) - Red', 
+                    size = 2.4, color = 'red') 
+       
    })
    
    output$trendPlot <- renderPlot({

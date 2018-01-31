@@ -47,9 +47,15 @@ shinyUI(dashboardPage(
     ),
     
     dashboardBody(
-        tags$head(
-            tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
-        ),
+#       tags$head(
+#           tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+#       ),
+        
+        tags$head(tags$style(HTML('
+                                  .user-panel>.info{
+                                  background:none ;
+                                  }
+                                  '))),   
         
         tabItems(
             tabItem(tabName = "map",
