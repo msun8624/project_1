@@ -5,12 +5,6 @@ library(shinydashboard)
 library(maps)
 
 
-### ui <- fluidPage(
-#   leafletOutput("mymap"),
-#   br(),
-#   checkboxInput("show", "Show States", value = FALSE)
-# )
-
 shinyUI(dashboardPage(
     dashboardHeader(title = "Fatal Vehicle Accidents"),
     dashboardSidebar(
@@ -71,7 +65,7 @@ shinyUI(dashboardPage(
                     h4('- The above bar chart compares the accidents volume with the accidents density. The volume is normalized by the population of each state.'),
                     br(),
                     fluidRow(box(plotOutput("trendPlot"), width = 12)),
-                    h4('- The above area chart visualize the collision manner time distribution during the 24 hour period. Each hour data is aggregated over one year period.'),
+                    h4('- The above area chart visualize the collision manner time distribution during the 24 hour period. Each hour data is aggregated over one year.'),
                     br()
             ),
             
@@ -83,9 +77,9 @@ shinyUI(dashboardPage(
                     fluidRow(
                         box(plotOutput("weatherPlot"), width = 6),
                         box(width = 6, height = 425,
-                            h3('- These three bar charts demonstrate the relationship between what and how for the fatal accidents'),
-                            h3('- What is what caused the accidents.'),
-                            h3('- How is how vehicle was impacted when accidents happened.'))
+                            tags$ul(tags$li(tags$h3('These three bar charts demonstrate the relationship between what and how for the fatal accidents'))),
+                            tags$ul(tags$li(tags$h3('What - what caused the accidents.'))),
+                            tags$ul(tags$li(tags$h3('How - how vehicle was impacted when accidents happened.'))))
                     )
             ),
             
@@ -97,9 +91,9 @@ shinyUI(dashboardPage(
                     fluidRow(
                         box(plotOutput("headonPlot"), width = 6),
                         box(width = 6, height = 425,
-                            h3('- These three area charts explore the trend of three most common vehicle collision manners with time.'),
-                            h3('- The amazing finding is majority of the fatal accidents happened in clear weather and the other vehicle involved was in stationary position.'),
-                            h3('- This trend fits well with the AI future - autopilot of the vehicles.'))
+                            tags$ul(tags$li(tags$h3('Three area charts explore the trend of three most common vehicle collision manners with time.'))),
+                            tags$ul(tags$li(tags$h3('The amazing finding is majority of the fatal accidents happened in clear weather and the other vehicle involved was in stationary position.'))),
+                            tags$ul(tags$li(tags$h3('This trend fits well with the AI future - autopilot of the vehicles.'))))
                     )
             )
         )

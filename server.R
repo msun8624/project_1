@@ -8,12 +8,19 @@ source('./project1/helper.R')
 
 shinyServer(function(input, output, session){
     
-    output$mymap <- renderLeaflet({
-        leaflet() %>%
-            addProviderTiles("Esri.WorldStreetMap") %>%
+    output$mymap <- renderLeaflet({   
+        leaflet(data = states) %>% addProviderTiles("Esri.WorldStreetMap") %>% 
+            setView(lng = -93.85, lat = 37.45, zoom = 4)  %>%
             clearMarkers() %>%
             clearShapes() %>%
-            setView(lng = -93.85, lat = 37.45, zoom = 4)
+            addPolygons(
+                fillColor = ~pal(density),
+                weight = 2,
+                opacity = 1,
+                color = "white",
+                dashArray = "3",
+                fillOpacity = 0.5) %>%
+            addLegend(pal = pal, values = ~density, opacity = 0.7, title = NULL, position = 'bottomright')
     })
     
     observeEvent(input$Hour, {
@@ -21,7 +28,7 @@ shinyServer(function(input, output, session){
         
         
         leafletProxy("mymap") %>%
-            clearShapes() %>% clearMarkers() %>%
+            clearMarkers() %>%
             addCircleMarkers(data = accidents_state, ~Longitude, ~Latitude, radius = 3,
                              stroke = F, fillOpacity = 1, fillColor = 'red',
                              label = paste0('County: ', accidents_state$County, 
@@ -35,7 +42,7 @@ shinyServer(function(input, output, session){
         
         
         leafletProxy("mymap") %>%
-            clearShapes() %>% clearMarkers() %>%
+            clearMarkers() %>%
             addCircleMarkers(data = accidents_state, ~Longitude, ~Latitude, radius = 3,
                              stroke = F, fillOpacity = 1, fillColor = 'red',
                              label = paste0('County: ', accidents_state$County, 
