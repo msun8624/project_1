@@ -30,7 +30,7 @@ shinyServer(function(input, output, session){
         leafletProxy("mymap") %>%
             clearMarkers() %>%
             addCircleMarkers(data = accidents_state, ~Longitude, ~Latitude, radius = 3,
-                             stroke = F, fillOpacity = 1, fillColor = 'red',
+                             stroke = F, fillOpacity = 0.2, fillColor = 'red',
                              label = paste0('County: ', accidents_state$County, 
                                             '. Hourly Accidents in ', accidents_state$State_ab,   
                                             ': ', accidents_state$N_hour_state)) %>%
@@ -44,7 +44,7 @@ shinyServer(function(input, output, session){
         leafletProxy("mymap") %>%
             clearMarkers() %>%
             addCircleMarkers(data = accidents_state, ~Longitude, ~Latitude, radius = 3,
-                             stroke = F, fillOpacity = 1, fillColor = 'red',
+                             stroke = F, fillOpacity = 0.2, fillColor = 'red',
                              label = paste0('County: ', accidents_state$County, 
                                             '. Hourly Accidents in ', accidents_state$State_ab,   
                                             ': ', accidents_state$N_hour_state)) %>%
