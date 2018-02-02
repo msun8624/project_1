@@ -1,5 +1,7 @@
 library(data.table)
 library(geojsonio)
+library(leaflet)
+
 
 setwd('~/NYC_data_science/projects/')
 accidents <- fread(file = './project1/vehicle_accidents.csv')
