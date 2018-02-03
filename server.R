@@ -2,6 +2,7 @@ library(googleVis)
 library(leaflet)
 library(shiny)
 library(maps)
+library(htmltools)
 
 
 source('./project1/helper.R')
@@ -20,34 +21,39 @@ shinyServer(function(input, output, session){
                 color = "white",
                 dashArray = "3",
                 fillOpacity = 0.5) %>%
-            addLegend(pal = pal, values = ~density, opacity = 0.7, title = NULL, position = 'bottomright')
+            addLegend(pal = pal, values = ~density, opacity = 0.7, 
+                      title = 'pop density (pp3m)', position = 'bottomright')
     })
     
     observeEvent(input$Hour, {
         accidents_state <- update_input(input$Hour, input$State, accidents)
-        
+        label_text <- sprintf(
+            'County: %s<br/>State: %s<br/>Accidents within chosen timeframe: %d',
+            accidents_state$County, accidents_state$State_ab,
+            accidents_state$N_hour_state) %>%
+            lapply(htmltools::HTML)
         
         leafletProxy("mymap") %>%
             clearMarkers() %>%
             addCircleMarkers(data = accidents_state, ~Longitude, ~Latitude, radius = 3,
-                             stroke = F, fillOpacity = 0.2, fillColor = 'red',
-                             label = paste0('County: ', accidents_state$County, 
-                                            '. Hourly Accidents in ', accidents_state$State_ab,   
-                                            ': ', accidents_state$N_hour_state)) %>%
+                             stroke = F, fillOpacity = 0.2, fillColor = 'blue',
+                             label = label_text) %>%
             setView(lng = -93.85, lat = 37.45, zoom = 4)
     })
 
     observeEvent(input$State, {
         accidents_state <- update_input(input$Hour, input$State, accidents)
-        
+        label_text <- sprintf(
+            'County: %s<br/>State: %s<br/>Accidents within chosen timeframe: %d',
+            accidents_state$County, accidents_state$State_ab,
+            accidents_state$N_hour_state) %>%
+            lapply(htmltools::HTML)      
         
         leafletProxy("mymap") %>%
             clearMarkers() %>%
             addCircleMarkers(data = accidents_state, ~Longitude, ~Latitude, radius = 3,
-                             stroke = F, fillOpacity = 0.2, fillColor = 'red',
-                             label = paste0('County: ', accidents_state$County, 
-                                            '. Hourly Accidents in ', accidents_state$State_ab,   
-                                            ': ', accidents_state$N_hour_state)) %>%
+                             stroke = F, fillOpacity = 0.2, fillColor = 'blue',
+                             label = label_text) %>%
             setView(lng = -93.85, lat = 37.45, zoom = 4)
     })
     
