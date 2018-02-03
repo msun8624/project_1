@@ -22,7 +22,7 @@ shinyServer(function(input, output, session){
                 dashArray = "3",
                 fillOpacity = 0.5) %>%
             addLegend(pal = pal, values = ~density, opacity = 0.7, 
-                      title = 'pop density (pp3m)', position = 'bottomright')
+                      title = 'pop density', position = 'bottomright')
     })
     
     observeEvent(input$Hour, {
